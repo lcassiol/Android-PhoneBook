@@ -8,4 +8,113 @@
     tools:context="com.example.lcassiol.android_phonebook.Form"
     tools:showIn="@layout/activity_form">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgForm"
+                android:layout_width="match_parent"
+                android:layout_height="159dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_launcher"
+                tools:layout_editor_absoluteX="-152dp" />
+
+            <EditText
+                android:id="@+id/emailForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/nameForm"
+                android:layout_alignStart="@+id/nameForm"
+                android:layout_below="@+id/nameForm"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="email:"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/adressForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/phoneForm"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="adress:"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/phoneForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/siteForm"
+                android:layout_alignStart="@+id/siteForm"
+                android:layout_below="@+id/siteForm"
+                android:layout_marginTop="13dp"
+                android:ems="10"
+                android:hint="phone:"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/siteForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/emailForm"
+                android:layout_alignStart="@+id/emailForm"
+                android:layout_below="@+id/emailForm"
+                android:layout_marginTop="19dp"
+                android:ems="10"
+                android:hint="site:"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/nameForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgForm"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="28dp"
+                android:ems="10"
+                android:hint="name:"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_above="@+id/nameForm"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/layout_button_photo" />
+        </RelativeLayout>
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>
