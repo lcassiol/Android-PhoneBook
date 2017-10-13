@@ -6,11 +6,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 public class Form extends AppCompatActivity {
+
+    FormHelper formHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +29,7 @@ public class Form extends AppCompatActivity {
             //toolbar.setNavigationIcon(R.drawable.image_back);
         }
 
-        Contact myContact = new Contact();
-        myContact.setName("Cassius Carvalho");
-        myContact.setEmail("lcassiol");
-        myContact.setSite("");
-        myContact.setPhone("12345");
-        myContact.setAdress("Aqui perto la longe");
+        formHelper = new FormHelper(this);
 
     }
 
@@ -45,6 +43,16 @@ public class Form extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.form_ok:
+
+                Contact contact = formHelper.getContactFromForm();
+                ContactDAO contactDAO = new ContactDAO(Form.this);
+                if(contact.getId() == null){
+                    contactDAO.insertContact(contact);
+                }else{
+                    contactDAO.updateContact(contact);
+                }
+
+                contactDAO.close();
 
                 finish();
                 return false;
