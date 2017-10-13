@@ -7,4 +7,8 @@
     <color name="colorBtnPhoto">#bc3838</color>
     <color name="colorPar">#b6b6b9</color>
     <color name="colorImpar">#747474</color>
+
+    <color name="colorTextBackground">#FFFFF9F9</color>
+    <color name="colorTextBorder">#000000</color>
+
 </resources>
