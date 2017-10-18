@@ -118,6 +118,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        itemCall.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                    if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.CALL_PHONE)){
+
+                    }else{
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CALL_PHONE},0);
+                    }
+                }else{
+                    callContact(selectContact);
+                }
+                return false;
+            }
+        });
+
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -146,6 +163,15 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.RECEIVE_SMS},0);
             }
         }else{
+
+        }
+    }
+
+    public void callContact(Contact contact){
+        if(contact != null){
+            Intent intentCall = new Intent(Intent.ACTION_CALL);
+            intentCall.setData(Uri.parse("tel:" + contact.getPhone()));
+            startActivity(intentCall);
 
         }
     }
