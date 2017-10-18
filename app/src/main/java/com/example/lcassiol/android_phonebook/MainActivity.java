@@ -2,9 +2,12 @@ package com.example.lcassiol.android_phonebook;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
+import java.util.jar.Manifest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +43,20 @@ public class MainActivity extends AppCompatActivity {
 
         contactList = (ListView) findViewById(R.id.contactList);
         registerForContextMenu(contactList);
+
+        contactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Contact contact;
+                contact = (Contact) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(MainActivity.this, Form.class);
+                intent.putExtra("selectedContact", contact);
+                startActivity(intent);
+            }
+        });
+
+        permissionSms();
     }
 
     @Override
@@ -76,6 +94,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        itemSMS.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intentSms = new Intent(Intent.ACTION_VIEW);
+                intentSms.setData(Uri.parse("sms:" + selectContact.getPhone()));
+
+                startActivity(intentSms);
+
+                return false;
+            }
+        });
+
+        itemSite.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intentSite = new Intent(Intent.ACTION_VIEW);
+                intentSite.setData(Uri.parse("http://" + selectContact.getSite()));
+                startActivity(intentSite);
+
+                return false;
+            }
+        });
+
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -92,5 +134,19 @@ public class MainActivity extends AppCompatActivity {
 
         ContactAdapter adapter = new ContactAdapter(this,contacs);
         this.contactList.setAdapter(adapter);
+    }
+
+
+    private void permissionSms() {
+        if(ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.RECEIVE_SMS)){
+
+            }else{
+
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.RECEIVE_SMS},0);
+            }
+        }else{
+
+        }
     }
 }

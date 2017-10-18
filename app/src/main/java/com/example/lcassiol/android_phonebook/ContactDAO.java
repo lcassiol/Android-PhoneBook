@@ -48,6 +48,7 @@ public class ContactDAO extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("name", contact.getName());
         values.put("site", contact.getSite());
+        values.put("email", contact.getEmail());
         values.put("adress", contact.getAdress());
         values.put("phone", contact.getPhone());
         values.put("pathPhoto", contact.getPhoto());
@@ -64,6 +65,7 @@ public class ContactDAO extends SQLiteOpenHelper {
     public void updateContact(Contact contact){
         ContentValues values = new ContentValues();
         values.put("name", contact.getName());
+        values.put("email", contact.getEmail());
         values.put("site", contact.getSite());
         values.put("adress", contact.getAdress());
         values.put("phone", contact.getPhone());

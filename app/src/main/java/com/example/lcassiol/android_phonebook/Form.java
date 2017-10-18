@@ -1,5 +1,6 @@
 package com.example.lcassiol.android_phonebook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.view.View;
 public class Form extends AppCompatActivity {
 
     FormHelper formHelper;
+    Contact contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,12 @@ public class Form extends AppCompatActivity {
 
         formHelper = new FormHelper(this);
 
+        Intent intent = this.getIntent();
+        this.contact = (Contact) intent.getSerializableExtra("selectedContact");
+
+        if(this.contact != null){
+            this.formHelper.insertOnForm(this.contact);
+        }
     }
 
     @Override
