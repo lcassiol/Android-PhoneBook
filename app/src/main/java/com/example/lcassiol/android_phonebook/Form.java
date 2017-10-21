@@ -1,21 +1,30 @@
 package com.example.lcassiol.android_phonebook;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NavUtils;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+
+import java.io.File;
+
 
 public class Form extends AppCompatActivity {
 
     FormHelper formHelper;
     Contact contact;
+
+    private String pathFilePhoto;
+    private static final int PICK_PHOTO = 747;
+    private boolean photoResource = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +48,15 @@ public class Form extends AppCompatActivity {
         if(this.contact != null){
             this.formHelper.insertOnForm(this.contact);
         }
+
+        final Button btnPhoto = formHelper.getButtonPhoto();
+
+        btnPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadCamera();
+            }
+        });
     }
 
     @Override
@@ -68,4 +86,37 @@ public class Form extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void loadCamera(){
+        File imagePath = new File(getApplicationContext().getFilesDir(), "images");
+        if(!imagePath.exists()){
+            imagePath.mkdir();
+        }
+        File newFile = new File(imagePath, System.currentTimeMillis() + ".jpg");
+        this.pathFilePhoto = newFile.getAbsolutePath();
+        Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".fileprovider", newFile);
+
+        Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intentCamera.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        if (contentUri != null) {
+            intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+            intentCamera.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+        }
+
+        startActivityForResult(intentCamera,747);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == PICK_PHOTO){
+            if(resultCode == Activity.RESULT_OK){
+                formHelper.loadImage(this.pathFilePhoto);
+            }else{
+                this.pathFilePhoto = null;
+            }
+        }
+    }
+
+
 }
