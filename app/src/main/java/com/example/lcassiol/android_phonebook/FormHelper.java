@@ -1,7 +1,10 @@
 package com.example.lcassiol.android_phonebook;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.ActivityCompat;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;

@@ -80,6 +80,10 @@ public class ContactAdapter extends BaseAdapter{
             bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.contato);
         }
 
+        if(bitmap != null){
+            bitmap = Bitmap.createScaledBitmap(bitmap,180,180,true);
+        }
+
         photo.setImageBitmap(bitmap);
 
 

@@ -57,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         permissionSms();
+        checkPermissionReadStorage();
+    }
+
+    private void checkPermissionReadStorage() {
+        if(ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)){
+
+            }else{
+
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},0);
+            }
+        }
     }
 
     @Override
